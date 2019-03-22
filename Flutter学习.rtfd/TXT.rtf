@@ -1,0 +1,146 @@
+{\rtf1\ansi\ansicpg936\cocoartf1671
+{\fonttbl\f0\fnil\fcharset134 PingFangSC-Regular;\f1\fnil\fcharset0 MicrosoftYaHei;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red252\green39\blue18;
+\red217\green11\blue5;\red57\green57\blue57;\red67\green67\blue67;\red252\green252\blue252;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\cssrgb\c100000\c25271\c7591;
+\cssrgb\c88946\c14202\c0;\cssrgb\c29020\c29020\c29020;\cssrgb\c33333\c33333\c33333;\cssrgb\c99216\c99216\c99216;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww27380\viewh19880\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs48 \cf0 flutter\'d1\'a7\'cf\'b0 \'b1\'e0\'b3\'cc\'d3\'ef\'d1\'d4 dart\
+https://flutter.io \'d3\'a2\'ce\'c4\'b9\'d9\'cd\'f8\
+https://flutterchina.club/ \'d6\'d0\'ce\'c4\'b9\'d9\'cd\'f8(\'c5\'e4\'d6\'c3\'b8\'fa\'d7\'c5\'b2\'bd\'d6\'e8\'c7\'c3\'be\'cd\'d0\'d0)\
+https://github.com/flutter/flutter  SDK \'bd\'a8\'d2\'e9\'b8\'fa\'d7\'d9 beta\'b7\'d6\'d6\'a7 git@github.com:flutter/flutter.git\
+dart SDK\
+https://github.com/chinabrant/flutter_study \'d1\'a7\'cf\'b0\'d7\'ca\'c1\'cf\
+https://flutter.io/docs/get-started/flutter-for/ios-devs  iOS-Flutter\'cf\'ce\'bd\'d3\
+https://blog.csdn.net/u010126792/article/details/82347269 
+\f1 \cf2 \cb3 \expnd0\expndtw0\kerning0
+pubspec.yaml\uc0\u37197 \u32622 \u25991 \u20214 \u35828 \u26126 
+\f0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \'c3\'bf\'b8\'f6
+\f1 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\uc0\u39033 \u30446 \u20013 \u37117 \u26377 \
+\
+https://www.jianshu.com/p/5f4aaa72d509  iOS Native\uc0\u28151 \u32534 Flutter\u20132 \u20114 \u23454 \u36341 \
+https://github.com/flutter/flutter/wiki/Add-Flutter-to-existing-apps  \uc0\u21521 \u29616 \u26377 \u24037 \u31243 \u23884 \u20837 flutter\u23448 \u26041 \u25991 \u26723 \
+
+\f0 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\
+\'d0\'e8\'d2\'aa\'bc\'bc\'c4\'dc\
+cocoaPods\
+Homebrew\
+github\
+dart\
+flutter\
+\
+\
+\
+\
+\pard\pardeftab720\sl860\partightenfactor0
+\cf0 1.clone flutter \'bf\'f2\'bc\'dc\
+github\'c1\'b4\'bd\'d3  https://github.com/flutter/flutter/tree/beta\
+git clone -b beta https://github.com/flutter/flutter.git\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 2.\'c5\'e4\'d6\'c3\'d3\'c3\'bb\'a7\'bb\'b7\'be\'b3\'b1\'e4\'c1\'bf\
+\'d4\'da\cf4 \'d3\'c3\'bb\'a7\'c4\'bf\'c2\'bc\cf0 \'cf\'c2\'b4\'f2\'bf\'aa .bash_profile\
+vim .bash_profile\
+i\
+\
+\'ca\'e4\'c8\'eb \'b1\'ea\'ba\'ec\'b2\'bf\'b7\'d6\'ce\'aa git clone\'b5\'c4\'c2\'b7\'be\'b6\'a3\'a8flutter SDK\'b5\'c4\'c2\'b7\'be\'b6\'a3\'a9\
+export PUB_HOSTED_URL=https://pub.flutter-io.cn\
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn\
+export PATH=\cf5 /Users/tianpengfei/Desktop/flutter\cf0 /bin:$PATH\
+\
+esc\
+shift:\
+wq\
+\
+\'b2\'e9\'bf\'b4\'c5\'e4\'d6\'c3\'c4\'da\'c8\'dd\
+cat .bash_profile\
+\
+\'ca\'b9\'c5\'e4\'d6\'c3\'c9\'fa\'d0\'a7\
+source .bash_profile\
+\
+\'b2\'e9\'bf\'b4\'c5\'e4\'d6\'c3\'ca\'c7\'b7\'f1\'c9\'fa\'d0\'a7\
+$PATH\
+\
+3.\'cf\'c2\'d4\'d8flutter\'cf\'e0\'b9\'d8\'d2\'c0\'c0\'b5 (\'d7\'ee\'ba\'c3\'b7\'ad\'c7\'bd,\'b2\'bb\'b7\'ad\'c7\'bd\'cf\'c2\'d4\'d8\'ba\'dc\'c2\'fd\'a3\'ac\'d2\'b2\'bf\'c9\'c4\'dc\'bb\'e1\'b2\'bb\'b3\'c9\'b9\'a6)\
+flutter doctor \
+\'b3\'f6\'cf\'d6\'c8\'e7\'cf\'c2\'ba\'ec\'bf\'f2\'c7\'b0\'b1\'df\'d3\'d0\'c2\'cc\'c9\'ab\'b6\'d4\'ba\'c5\'bc\'b4\'bf\'c9\
+iOS\'ba\'cdandroid\'d0\'e8\'d2\'aa\'b7\'d6\'b1\'f0\'cf\'c2\'d4\'d8\'b6\'d4\'d3\'a6\'b5\'c4IDE\'c0\'b4\'c5\'e4\'ba\'cfflutter\
+3.1\'d4\'da\'d5\'e6\'bb\'fa\'c9\'cf\'d4\'cb\'d0\'d0\
+\'bd\'e2\'be\'f6iOS\'b2\'bf\'b7\'d6\'b5\'c4\'be\'af\'b8\'e6\'a3\'ac\'c4\'c7\'bc\'b8\'b8\'f6 brew\'c3\'fc\'c1\'ee\'a3\'a8\'d0\'e8\'d2\'aa\'b0\'b2\'d7\'b0HomeBrew\'a3\'a9\
+\'d4\'daXcode\'d6\'d0\'cc\'ed\'bc\'d3\'d7\'d4\'bc\'ba\'b5\'c4appleID\'a3\'ac\'d3\'c3Xcode\'b4\'f2\'bf\'aa\'b9\'a4\'b3\'cc\'a3\'ac\'c5\'e4\'d6\'c3\'d5\'e6\'bb\'fa\'d4\'cb\'d0\'d0Team\'b5\'c8\'d0\'c5\'cf\'a2\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f2\fs24 \cf0 {{\NeXTGraphic C36640ED03BFC3E3D5A35D38C0636BFD.png \width20300 \height18180 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs48 \cf0 \
+\
+\
+4.\'cf\'e0\'b9\'d8IDE\
+IDE VSCode\
+shift+command+p \'d0\'c2\'bd\'a8\'b9\'a4\'b3\'cc\
+option+shift+f \'b4\'fa\'c2\'eb\'b8\'f1\'ca\'bd\'bb\'af\
+control+` \'b5\'f7\'b3\'f6\'d6\'d5\'b6\'cb\
+shift+command+F5 hot reload\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic C9E4D1C3-D45F-497D-B4C4-E893D69C1E29.png \width9280 \height12220 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+debug\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 6BDD5EAE-FE3F-493F-B343-4205D65E0BE2.png \width11600 \height11940 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\'c7\'d0\'bb\'bb\'b5\'f7\'ca\'d4\'c9\'e8\'b1\'b8\
+shift+command+p\
+If you have multiple devices or simulators connected then there are a number of ways to quickly switch between them:\
+1\'a1\'a2Clicking on the currently selected device in the status bar\
+2\'a1\'a2Executing the Flutter: Select Device command\
+3\'a1\'a2Pressing your custom key binding for the Flutter: Select Device command\
+\
+5.\'cf\'ee\'c4\'bf\'d0\'e8\'d2\'aa\'bc\'af\'b3\'c9CocoaPods\
+\
+\pard\pardeftab720\sl860\partightenfactor0
+\cf6 \cb3 \expnd0\expndtw0\kerning0
+Cupertino (iOS-style) widgets   Flutter\'d6\'d0iOS\'d1\'f9\'ca\'bd\'b5\'c4\'d7\'e9\'bc\'fe\cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 StatelessWidgets \'ce\'de\'d7\'b4\'cc\'ac\'d7\'e9\'bc\'fe\'a3\'ac\'ca\'ca\'d3\'c3\'d3\'da\'c4\'da\'c8\'dd\'a3\'ac\'b2\'bc\'be\'d6\'b9\'cc\'b6\'a8\'b2\'bb\'b1\'e4\'b5\'c4\'c7\'e9\'bf\'f6\
+StatefulWidgets \'d3\'d0\'d7\'b4\'cc\'ac\'d7\'e9\'bc\'fe\'a3\'ac\'ca\'ca\'d3\'c3\'d3\'da\'c4\'da\'c8\'dd\'a3\'ac\'b2\'bc\'be\'d6\'bb\'e1\'b1\'e4\'b5\'c4\'c7\'e9\'bf\'f6\'a3\'a8\'cd\'f8\'c2\'e7\'c7\'eb\'c7\'f3\'ba\'f3\'cb\'a2\'d0\'c2UI\'a3\'a9,\'b5\'f7\'d3\'c3setState\'b7\'bd\'b7\'a8\
+\
+container\
+row \
+column\
+Text\
+Center\
+\
+Container\
+\'d0\'ed\'b6\'e0\'b2\'bc\'be\'d6\'bb\'e1\'d7\'d4\'d3\'c9\'ca\'b9\'d3\'c3\'c8\'dd\'c6\'f7\'c0\'b4\'ca\'b9\'d3\'c3padding\'b7\'d6\'b8\'f4widget\'a3\'ac\'bb\'f2\'d5\'df\'cc\'ed\'bc\'d3\'b1\'df\'bf\'f2\'a3\'a8border\'a3\'a9\'bb\'f2\'b1\'df\'be\'e0\'a3\'a8margin\'a3\'a9\'a1\'a3\'c4\'fa\'bf\'c9\'d2\'d4\'cd\'a8\'b9\'fd\'bd\'ab\'d5\'fb\'b8\'f6\'b2\'bc\'be\'d6\'b7\'c5\'c8\'eb\'c8\'dd\'c6\'f7\'b2\'a2\'b8\'fc\'b8\'c4\'c6\'e4\'b1\'b3\'be\'b0\'d1\'d5\'c9\'ab\'bb\'f2\'cd\'bc\'c6\'ac\'c0\'b4\'b8\'fc\'b8\'c4\'c9\'e8\'b1\'b8\'b5\'c4\'b1\'b3\'be\'b0\'a1\'a3\
+\
+Container \'b8\'c5\'d2\'aa :\
+\'cc\'ed\'bc\'d3padding, margins, borders\
+\'b8\'c4\'b1\'e4\'b1\'b3\'be\'b0\'d1\'d5\'c9\'ab\'bb\'f2\'cd\'bc\'c6\'ac\
+\'b0\'fc\'ba\'ac\'b5\'a5\'b8\'f6\'d7\'d3widget\'a3\'ac\'b5\'ab\'b8\'c3\'d7\'d3widget\'bf\'c9\'d2\'d4\'ca\'c7Row\'a3\'acColumn\'a3\'ac\'c9\'f5\'d6\'c1\'ca\'c7widget\'ca\'f7\'b5\'c4\'b8\'f9\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 {{\NeXTGraphic 9AB4EDD6-E7A5-4509-B157-0CC6397B8217.png \width6680 \height4680 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf7 \cb8 \expnd0\expndtw0\kerning0
+Material \'b0\'fc\'ba\'acappBar\
+AnimationController \'b6\'af\'bb\'ad\
+\cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+}
