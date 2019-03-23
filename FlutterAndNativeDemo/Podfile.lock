@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - FlutterPluginRegistrant (0.0.1):
+    - Flutter
+  - Reachability (3.2)
+
+DEPENDENCIES:
+  - Flutter (from `../FlutterDemo/my_flutter/.ios/Flutter/engine`)
+  - FlutterPluginRegistrant (from `../FlutterDemo/my_flutter/.ios/Flutter/FlutterPluginRegistrant`)
+  - Reachability (~> 3.2)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Reachability
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: "../FlutterDemo/my_flutter/.ios/Flutter/engine"
+  FlutterPluginRegistrant:
+    :path: "../FlutterDemo/my_flutter/.ios/Flutter/FlutterPluginRegistrant"
+
+SPEC CHECKSUMS:
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  FlutterPluginRegistrant: 5f33f54e5f25444620ff39f2bdee4262d673ec7b
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+
+PODFILE CHECKSUM: c2430ef3d290ca2cbc83525472ae3b61d101b582
+
+COCOAPODS: 1.5.3

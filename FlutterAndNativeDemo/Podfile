@@ -1,0 +1,10 @@
+platform:ios,'8.0'
+
+target 'FlutterDemo' do
+
+pod 'Reachability', '~> 3.2'
+
+end
+
+flutter_application_path = '../FlutterDemo/my_flutter'
+eval(File.read(File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')), binding)
