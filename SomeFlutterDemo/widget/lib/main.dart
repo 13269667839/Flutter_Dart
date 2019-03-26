@@ -174,12 +174,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
 
     var titleText = new Text(
-      '我是主标题',
+      'Flutter',
       style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
     );
 
-    var subTitle = new Text(
-        'jdfksjifjioweurtiewuwioerioewijfiejfweiojfiewjifewjfioewjfiewjfiowejiwejfwioe');
+    var subTitle = Column(
+      children: <Widget>[
+        Text('Flutter是Google一个新的用于构建跨平台的手机App的SDK。写一份代码，在Android 和iOS平台上都可以运行。'),
+        Text('在Flutter中，每个应用程序都是Widget，这点和其他的应用框架不一样，Flutter的对象模型是统一的，也就是控件。'),
+      ],
+    );
 
     var leftColumn = new Container(
       padding: new EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 20.0),
@@ -251,16 +255,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // );
 
-
     var pushButton = new RaisedButton(
       child: Text("Push Next Page!"),
-      onPressed: (){
+      onPressed: () {
         Navigator.push(
-          context, 
-          MaterialPageRoute(
-            builder: (context) => ZYHomeWiget()
-          )
-          );
+            context, MaterialPageRoute(builder: (context) => ZYHomeWiget()));
       },
     );
 

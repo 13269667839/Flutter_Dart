@@ -6,5 +6,5 @@ pod 'Reachability', '~> 3.2'
 
 end
 
-flutter_application_path = '../FlutterDemo/my_flutter'
+flutter_application_path = '../FlutterAndNativeDemo/my_flutter'
 eval(File.read(File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')), binding)
