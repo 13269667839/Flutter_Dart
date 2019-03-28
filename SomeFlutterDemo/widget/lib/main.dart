@@ -4,9 +4,14 @@ import 'ZYHomeWiget.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+// double screen_width = MediaQuery.of(context)
+
     return MaterialApp(
       title: 'Widget Demo',
       theme: ThemeData(
