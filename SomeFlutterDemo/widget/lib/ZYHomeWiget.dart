@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,21 +66,13 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
               }),
         ),
       );
-
-      // return Container(
-      //   margin: EdgeInsets.all(10),
-
-      //   child: ListView.builder(
-
-      //       itemCount: _widgets.length,
-      //       itemBuilder: (BuildContext context, int position) {
-      //         print(MediaQuery.of(context).size);
-      //         return getRow(position);
-      //       }),
-      // );
     } else {
-      return Text("NoData");
+      return getProgressDialog();
     }
+  }
+
+  getProgressDialog() {
+    return Center(child: CircularProgressIndicator());
   }
 
   Widget getRow(int i, double screen_W) {
@@ -127,6 +121,47 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[img, col],
         ));
+  }
+
+  //isolate 不能共享内存
+  loadData() async {
+    ReceivePort receivePort = ReceivePort();
+    await Isolate.spawn(dataLoader, receivePort.sendPort);
+
+    // The 'echo' isolate sends its SendPort as the first message
+    SendPort sendPort = await receivePort.first;
+
+    List msg = await sendReceive(
+        sendPort, "https://jsonplaceholder.typicode.com/posts");
+
+    setState(() {
+      _widgets = msg;
+    });
+  }
+
+  // The entry point for the isolate
+  static dataLoader(SendPort sendPort) async {
+    // Open the ReceivePort for incoming messages.
+    ReceivePort port = ReceivePort();
+
+    // Notify any other isolates what port this isolate listens to.
+    sendPort.send(port.sendPort);
+
+    await for (var msg in port) {
+      String data = msg[0];
+      SendPort replyTo = msg[1];
+
+      String dataURL = data;
+      http.Response response = await http.get(dataURL);
+      // Lots of JSON to parse
+      replyTo.send(json.decode(response.body));
+    }
+  }
+
+  Future sendReceive(SendPort port, msg) {
+    ReceivePort response = ReceivePort();
+    port.send([msg, response.sendPort]);
+    return response.first;
   }
 
   @override
