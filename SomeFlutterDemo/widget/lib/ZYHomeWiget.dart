@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
+import 'ZYDetailWiget.dart';
 import 'package:http/http.dart' as http;
 
 class ZYHomeWiget extends StatefulWidget {
@@ -64,8 +65,15 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
                 final double screen_W = getScreenWidth(context);
                 return GestureDetector(
                   child: getRow(position, screen_W),
-                  onTap: (){
+                  onTap: () {
                     print("点击了第${position}条");
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ZYDetailWiget(
+                                  detailTitle: _widgets[position]["title"],
+                                )));
                   },
                 );
               }),
@@ -170,6 +178,21 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
     return response.first;
   }
 
+  final myController = TextEditingController();
+
+  _getTextField() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.orange,
+      ),
+      margin: EdgeInsets.only(left: 10),
+      child: TextField(
+        decoration: InputDecoration(labelText: "请输入"),
+        controller: myController,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,6 +202,7 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
       // body: getListView(context),
       body: Column(
         children: <Widget>[
+          _getTextField(),
           getGoBackBtn(context),
           cuperBtn,
           _getToggleChild(),
