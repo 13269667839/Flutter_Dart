@@ -18,6 +18,7 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
 
   double img_W = 112;
   double img_H = 84;
+  double lineGap = 5;
 
   getScreenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
@@ -90,11 +91,103 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
   }
 
   Widget getRow(int i, double screen_W) {
+    //左侧图片
     var img = Container(
         width: img_W,
         height: img_H,
         child: Image.network(_widgets[i]["titleimage"]));
 
+    //标题行
+    var titleLine = Text("${_widgets[i]["title"]}",
+        maxLines: 2,
+        style: TextStyle(
+          backgroundColor: Colors.green,
+          fontSize: 17,
+          fontWeight: FontWeight.w700,
+        ));
+
+    var detailFontStyle = TextStyle(
+      backgroundColor: Colors.blue,
+      fontSize: 12,
+    );
+
+    //第二行
+    var secondLine = Container(
+      margin: EdgeInsets.only(top: lineGap),
+      child: Text(
+        "${_widgets[i]["secondLine"]}",
+        maxLines: 1,
+        style: detailFontStyle,
+      ),
+    );
+
+    //第三行
+    var thirdLine = Container(
+      margin: EdgeInsets.only(top: lineGap),
+      child: Text(
+        "${_widgets[i]["address"]}",
+        maxLines: 1,
+        style: detailFontStyle,
+      ),
+    );
+
+    //标签行
+    getTagsLine() {
+      String tags = _widgets[i]["tags"];
+
+      tags = tags != null ? tags : "";
+
+      List tagList = tags.split(" ");
+      tagList.remove("");
+
+      if (tagList.length > 0) {
+        List<Widget> tagWigets = [];
+        for (String tag in tagList) {
+          var con = Container(
+            decoration: BoxDecoration(
+              color: Colors.grey,
+              // border: Border.all(color: Color(3)),
+              borderRadius: BorderRadius.all(Radius.circular(3)),
+            ),
+            padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+            margin: EdgeInsets.only(right: 5),
+            child: Text(
+              tag,
+              style: detailFontStyle,
+            ),
+          );
+
+          tagWigets.add(con);
+        }
+
+        return Container(
+          color: Colors.yellow,
+          margin: EdgeInsets.only(top: lineGap),
+          child: Row(
+            children: tagWigets,
+          ),
+        );
+      } else {
+        return Container(
+          height: 0,
+        );
+      }
+    }
+
+    //价格
+    getPirceLine() {
+      String tags = _widgets[i]["price"];
+      return Container(
+        margin: EdgeInsets.only(top: lineGap + 2),
+        color: Colors.purple,
+        child: Text(
+          tags,
+          style: TextStyle(fontSize: 15),
+        ),
+      );
+    }
+
+    //右侧整体
     var col = Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
       width: screen_W - img_W - 40,
@@ -102,38 +195,32 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            "${_widgets[i]["title"]}",
-            maxLines: 2,
-            style: TextStyle(backgroundColor: Colors.green),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Text(
-              "${_widgets[i]["secondLine"]}",
-              maxLines: 1,
-              style: TextStyle(backgroundColor: Colors.orange),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 10),
-            child: Text(
-              "${_widgets[i]["address"]}",
-              maxLines: 1,
-              style: TextStyle(backgroundColor: Colors.blue),
-            ),
-          ),
+          titleLine,
+          secondLine,
+          thirdLine,
+          getTagsLine(),
+          getPirceLine()
         ],
       ),
     );
 
+    //row整体
     return Container(
-        padding: EdgeInsets.fromLTRB(20, 18, 20, 18),
+        padding: EdgeInsets.fromLTRB(20, 18, 20, 0),
         decoration: BoxDecoration(color: Colors.red),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[img, col],
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[img, col],
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 18),
+              height: .5,
+              color: Colors.grey,
+            )
+          ],
         ));
   }
 
@@ -178,21 +265,6 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
     return response.first;
   }
 
-  final myController = TextEditingController();
-
-  _getTextField() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.orange,
-      ),
-      margin: EdgeInsets.only(left: 10),
-      child: TextField(
-        decoration: InputDecoration(labelText: "请输入"),
-        controller: myController,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,7 +274,6 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
       // body: getListView(context),
       body: Column(
         children: <Widget>[
-          _getTextField(),
           getGoBackBtn(context),
           cuperBtn,
           _getToggleChild(),
@@ -220,9 +291,6 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
   var cuperBtn = Center(
     child: MaterialButton(
       onPressed: () {
-        // setState(() {
-
-        // });
         print("点击了按钮");
       },
       child: Text("Hello"),
