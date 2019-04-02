@@ -62,12 +62,18 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
               itemCount: _widgets.length,
               itemBuilder: (BuildContext context, int position) {
                 final double screen_W = getScreenWidth(context);
-                return getRow(position, screen_W);
+                return GestureDetector(
+                  child: getRow(position, screen_W),
+                  onTap: (){
+                    print("点击了第${position}条");
+                  },
+                );
               }),
         ),
       );
     } else {
-      return getProgressDialog();
+      // return getProgressDialog();
+      return Text("data");
     }
   }
 
