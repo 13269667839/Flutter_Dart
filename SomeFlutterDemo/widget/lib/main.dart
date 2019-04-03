@@ -4,12 +4,9 @@ import 'ZYHomeWiget.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-
-  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
 // double screen_width = MediaQuery.of(context)
 
     return MaterialApp(
@@ -24,7 +21,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(title: 'Widget Demo Home Page'),
     );
@@ -185,7 +182,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     var subTitle = Column(
       children: <Widget>[
-        Text('Flutter是Google一个新的用于构建跨平台的手机App的SDK。写一份代码，在Android 和iOS平台上都可以运行。'),
+        Text(
+            'Flutter是Google一个新的用于构建跨平台的手机App的SDK。写一份代码，在Android 和iOS平台上都可以运行。'),
         Text('在Flutter中，每个应用程序都是Widget，这点和其他的应用框架不一样，Flutter的对象模型是统一的，也就是控件。'),
       ],
     );
@@ -272,9 +270,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: Theme.of(context).primaryTextTheme.title,
+        ),
       ),
-      body: new ListView(
+      body: ListView(
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           pushButton,
