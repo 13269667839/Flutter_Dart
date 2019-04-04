@@ -292,14 +292,14 @@ class _ZYListWigetState extends State<ZYListWiget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-                price,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xFFdf3031),
-                    fontWeight: FontWeight.w500),
-              ),
+              price,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Color(0xFFdf3031),
+                  fontWeight: FontWeight.w500),
+            ),
             Text(
               priceType,
               style: TextStyle(

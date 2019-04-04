@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import "ZYShopListWiget.dart";
 
 class ZYDetailWiget extends StatefulWidget {
   String detailTitle;
@@ -119,15 +118,6 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget> {
           onTap: () {
             // 触摸收起键盘
             FocusScope.of(context).requestFocus(FocusNode());
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ShoppingList(products: [
-                          Product(name: "egg"),
-                          Product(name: "egg"),
-                          Product(name: "egg"),
-                          Product(name: "egg")
-                        ])));
           },
           child: ListView(
             children: <Widget>[
