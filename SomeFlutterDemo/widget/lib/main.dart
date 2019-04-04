@@ -62,6 +62,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //跳转按钮
+    var pushButton = new RaisedButton(
+      child: Text("Push Next Page!"),
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ZYHomeWiget()));
+      },
+    );
+
     var packedRow = new Container(
       padding: EdgeInsets.only(top: 32, bottom: 10),
       child: new Row(
@@ -85,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Image.asset('images/lake.png'),
         ),
         new Expanded(
-          // flex: 2,相比于兄弟的大小
+          flex: 2, //相比于兄弟的大小
           child: Image.asset('images/lake.png'),
         ),
         new Expanded(
@@ -195,23 +204,26 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    var rightImage = new Expanded(
-      child: new Image.asset('images/lake.png'),
+    var rightImage = Container(
+      // decoration: BoxDecoration(color: Color(0xFFdf3031)),
+      width: 5000,
+      margin: EdgeInsets.all(5),
+      child: Image.asset('images/lake.png'),
     );
 
     var demo1 = new Center(
       child: new Container(
-        margin: new EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 30.0),
-        height: 600.0,
+        margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 30.0),
+        // height: 600.0,
         child: new Card(
           child: new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              rightImage,
               new Container(
                 // width: 400.0,
                 child: leftColumn,
               ),
-              rightImage
             ],
           ),
         ),
@@ -251,19 +263,6 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-    );
-
-    //GridView
-    // var myGV = new GridView(
-
-    // );
-
-    var pushButton = new RaisedButton(
-      child: Text("Push Next Page!"),
-      onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ZYHomeWiget()));
-      },
     );
 
     return Scaffold(

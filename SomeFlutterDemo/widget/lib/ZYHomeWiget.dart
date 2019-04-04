@@ -1,11 +1,11 @@
 import 'dart:isolate';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'ZYListWiget.dart';
 import 'package:http/http.dart' as http;
+import 'ZYShopListWiget.dart';
 
 class ZYHomeWiget extends StatefulWidget {
   @override
@@ -60,11 +60,8 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
     });
   }
 
-  _getToggleChild(BuildContext context) {
-    if (!toggle) {
-      return Text("Toggle One");
-    } else {
-      return CupertinoButton(
+  _getZFListChild(BuildContext context) {
+    return CupertinoButton(
         color: Colors.green,
         onPressed: () {
           Navigator.push(
@@ -72,27 +69,38 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
         },
         child: Text("跳转到列表页"),
       );
-    }
   }
 
-  var _cuperBtn = Center(
-    child: MaterialButton(
-      color: Colors.red,
-      onPressed: () {
-        print("点击了按钮");
-      },
-      child: Text("MaterialButton"),
-      padding: EdgeInsets.only(left: 10, right: 10),
-    ),
-  );
+  _getCuperBtn(BuildContext context) => Center(
+        child: MaterialButton(
+          color: Colors.red,
+          onPressed: () {
+            print("点击了按钮");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ShoppingList(products: [
+                          Product(name: "egg"),
+                          Product(name: "Flour"),
+                          Product(name: "egg"),
+                          Product(name: "egg")
+                        ])));
+          },
+          child: Text("跳转到ShoppingList页"),
+          padding: EdgeInsets.only(left: 10, right: 10),
+        ),
+      );
 
   Widget _getGoBackBtn(BuildContext context) {
     return Center(
       child: RaisedButton(
+        
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Text("Go Back!!"),
+        child: Text("Go Back!!",style: TextStyle(
+          color: toggle == true ? Colors.red : Colors.blue
+        ),),
       ),
     );
   }
@@ -107,8 +115,8 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
       body: Column(
         children: <Widget>[
           _getGoBackBtn(context),
-          _cuperBtn,
-          _getToggleChild(context),
+          _getCuperBtn(context),
+          _getZFListChild(context),
         ],
       ),
       floatingActionButton: FloatingActionButton(
