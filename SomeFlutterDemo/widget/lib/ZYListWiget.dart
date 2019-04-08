@@ -12,31 +12,69 @@ class ZYListWiget extends StatefulWidget {
 
 class _ZYListWigetState extends State<ZYListWiget> {
   List _widgets = [];
+  ScrollController _scrollController = ScrollController(); //listview的控制器
   double img_W = 112;
   double img_H = 84;
   double lineGap = 5;
+  int page = 1;
+  bool isRequesting = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _sendHttpRequest();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        if (!isRequesting) {
+          page++;
+          print('滑动到了最底部,请求第$page页');
+          _sendHttpRequest();
+        }
+      }
+    });
   }
 
   getScreenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
   }
 
-  _sendHttpRequest() async {
-    String dataURL = "http://10.2.105.186:8675/flutterJson.json";
-    http.Response response = await http.get(dataURL);
-    setState(() {
+  List _paserJsonData(http.Response response) {
+    List tList = [];
+    if (response is http.Response) {
       //增加解析中文
       Utf8Decoder dec = Utf8Decoder();
-      _widgets = json.decode(dec.convert(response.bodyBytes));
+      tList = json.decode(dec.convert(response.bodyBytes));
       //没法解析中文
-      // _widgets =json.decode(response.body);
+      // tList =json.decode(response.body);
+    } else {}
+    return tList;
+  }
+
+  _sendHttpRequest() async {
+    isRequesting = true;
+    String dataURL = "http://10.2.105.186:8675/flutterJson.json";
+
+    //同步
+    http.Response response = await http.get(dataURL);
+    isRequesting = false;
+    setState(() {
+      if (page == 1) {
+        _widgets = _paserJsonData(response);
+      } else {
+        _widgets.addAll(_paserJsonData(response));
+      }
     });
+
+    //异步
+    // http.get(dataURL).then((Object response) {
+    //   isRequesting = false;
+    //   setState(() {
+    //     _widgets = _paserJsonData(response);
+    //   });
+    // });
+    print("object");
   }
 
   Widget getListView(BuildContext context) {
@@ -44,23 +82,35 @@ class _ZYListWigetState extends State<ZYListWiget> {
       return Container(
         decoration: BoxDecoration(color: Color(0xFFf5f5f5)),
         child: ListView.builder(
-            itemCount: _widgets.length,
-            itemBuilder: (BuildContext context, int position) {
-              // final double screen_W = getScreenWidth(context);
-              return GestureDetector(
-                child: getRow(position),
-                onTap: () {
-                  print("点击了第${position}条");
+          itemCount: _widgets.length,
+          itemBuilder: (BuildContext context, int position) {
+            // final double screen_W = getScreenWidth(context);
+            return GestureDetector(
+              child: getRow(position),
+              onTap: () {
+                print("点击了第${position}条");
 
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ZYDetailWiget(
-                                detailTitle: _widgets[position]["title"],
-                              )));
-                },
-              );
-            }),
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ZYDetailWiget(
+                              detailTitle: _widgets[position]["title"],
+                            ))).then((Object result) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      String str = result.toString();
+                      return new AlertDialog(
+                        content: new Text("您返回的内容为:$str"),
+                      );
+                    },
+                  );
+                });
+              },
+            );
+          },
+          controller: _scrollController,
+        ),
       );
     } else {
       return getProgressDialog();
@@ -70,6 +120,30 @@ class _ZYListWigetState extends State<ZYListWiget> {
 
   getProgressDialog() {
     return Center(child: CircularProgressIndicator());
+  }
+
+ /**
+   * 加载更多时显示的组件,给用户提示
+   */
+  Widget _getMoreWidget() {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '加载中...',
+              style: TextStyle(fontSize: 16.0),
+            ),
+            CircularProgressIndicator(
+              strokeWidth: 1.0,
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Widget getRow(int i) {
@@ -197,7 +271,8 @@ class _ZYListWigetState extends State<ZYListWiget> {
     );
 
     //第二行
-    var secondLine = Container(
+    _getSecondLine(){
+      return Container(
       margin: EdgeInsets.only(top: lineGap),
       child: Text(
         "${_widgets[i]["secondLine"]}",
@@ -205,9 +280,11 @@ class _ZYListWigetState extends State<ZYListWiget> {
         style: detailFontStyle,
       ),
     );
+    }
 
     //第三行
-    var thirdLine = Container(
+    _getThirdLine(){
+      return Container(
       margin: EdgeInsets.only(top: lineGap),
       child: Text(
         "${_widgets[i]["address"]}",
@@ -215,6 +292,7 @@ class _ZYListWigetState extends State<ZYListWiget> {
         style: detailFontStyle,
       ),
     );
+    }
 
     //第4行
     _getAgentCountLine() {
@@ -321,8 +399,8 @@ class _ZYListWigetState extends State<ZYListWiget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _getTitleLine(),
-          secondLine,
-          thirdLine,
+          _getSecondLine(),
+          _getThirdLine(),
           _getAgentCountLine(),
           _getTagsLine(),
           _getPirceLine()
@@ -353,6 +431,12 @@ class _ZYListWigetState extends State<ZYListWiget> {
             )
           ],
         ));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
