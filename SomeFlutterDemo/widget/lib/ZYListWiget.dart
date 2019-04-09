@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class ZYListWiget extends StatefulWidget {
   @override
-  _ZYListWigetState createState() => _ZYListWigetState();
+  createState() => _ZYListWigetState();
 }
 
 class _ZYListWigetState extends State<ZYListWiget> {
@@ -435,6 +435,9 @@ class _ZYListWigetState extends State<ZYListWiget> {
 
   @override
   void dispose() {
+
+
+    
     // TODO: implement dispose
     super.dispose();
   }

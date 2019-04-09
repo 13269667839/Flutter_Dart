@@ -62,13 +62,13 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
 
   _getZFListChild(BuildContext context) {
     return CupertinoButton(
-        color: Colors.green,
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ZYListWiget()));
-        },
-        child: Text("跳转到列表页"),
-      );
+      color: Colors.green,
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ZYListWiget()));
+      },
+      child: Text("跳转到列表页"),
+    );
   }
 
   _getCuperBtn(BuildContext context) => Center(
@@ -94,14 +94,24 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
   Widget _getGoBackBtn(BuildContext context) {
     return Center(
       child: RaisedButton(
-        
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Text("Go Back!!",style: TextStyle(
-          color: toggle == true ? Colors.red : Colors.blue
-        ),),
+        child: Text(
+          "Go Back!!",
+          style: TextStyle(color: toggle == true ? Colors.red : Colors.blue),
+        ),
       ),
+    );
+  }
+
+  _getGrideViewBtn(BuildContext contex) {
+    return CupertinoButton(
+      onPressed: () {
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => GridListDemo()));
+      },
+      child: Text("跳转到GrideView"),
     );
   }
 
@@ -116,6 +126,7 @@ class _ZYHomeWigetState extends State<ZYHomeWiget> {
         children: <Widget>[
           _getGoBackBtn(context),
           _getCuperBtn(context),
+          _getGrideViewBtn(context),
           _getZFListChild(context),
         ],
       ),
