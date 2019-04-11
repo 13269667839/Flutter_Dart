@@ -95,17 +95,20 @@ class _ZYListWigetState extends State<ZYListWiget> {
                     MaterialPageRoute(
                         builder: (context) => ZYDetailWiget(
                               detailTitle: _widgets[position]["title"],
-                            ))).then((Object result) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      String str = result.toString();
-                      return new AlertDialog(
-                        content: new Text("您返回的内容为:$str"),
-                      );
-                    },
-                  );
-                });
+                            ))).then((Object result){
+                              print("object$result");
+                            });
+                //             .then((Object result) {
+                //   showDialog(
+                //     context: context,
+                //     builder: (BuildContext context) {
+                //       String str = result.toString();
+                //       return AlertDialog(
+                //         content: Text("您返回的内容为:$str"),
+                //       );
+                //     },
+                //   );
+                // });
               },
             );
           },
