@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/animation.dart';
 
+typedef DetailOnTap = void Function();
+
+class InfoModel {
+  InfoModel({this.key, this.value, this.onTap});
+
+  String key;
+  String value;
+  DetailOnTap onTap;
+}
+
 class ZYDetailWiget extends StatefulWidget {
   String detailTitle;
 
@@ -23,6 +33,8 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
   AnimationController logoAnimaCtr;
   double pix = 0;
   bool isBig = false;
+  bool isStar = false;
+
   @override
   void initState() {
     super.initState();
@@ -47,11 +59,11 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
         setState(() {});
       })
       ..addStatusListener((s) {
-        if (s == AnimationStatus.completed) {
-          logoAnimaCtr.reverse();
-        } else if (s == AnimationStatus.dismissed) {
-          logoAnimaCtr.forward();
-        }
+        // if (s == AnimationStatus.completed) {
+        //   logoAnimaCtr.reverse();
+        // } else if (s == AnimationStatus.dismissed) {
+        //   logoAnimaCtr.forward();
+        // }
       });
 
     logoAnimaCtr.forward();
@@ -96,10 +108,19 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
 
   double leftGap = 15;
 
-  _getGrayLineView() {
+  _getGrayLineView({double h, double w, double mL, double mR}) {
     return Container(
-      margin: EdgeInsets.only(top: 15),
-      height: 7,
+      margin: EdgeInsets.only(
+          top: leftGap, left: mL == null ? 0 : mL, right: mR == null ? 0 : mR),
+      height: h == null ? 7 : h,
+      decoration: BoxDecoration(color: Color(0xFFF0F0F0)),
+    );
+  }
+
+  _getSeparateLineView() {
+    return Container(
+      margin: EdgeInsets.only(top: leftGap, bottom: leftGap),
+      width: 0.5,
       decoration: BoxDecoration(color: Color(0xFFF0F0F0)),
     );
   }
@@ -110,12 +131,14 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
     double imgHeight = screen_w * 0.7;
     if (pix < 0) {
       abs = (-pix + imgHeight) / imgHeight;
-    } else {}
+    } else {
+      abs = ((imgHeight + 20) - pix) / (imgHeight + 20);
+    }
 
     if (isOver) {
       return Container(
-        width: screen_w * abs,
-        height: imgHeight * abs,
+        width: screen_w * abs + 20 * 10 / 7,
+        height: imgHeight * abs + 20,
         child: Image.asset('images/lake.png', fit: BoxFit.fill),
       );
     } else {
@@ -163,14 +186,37 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
       margin: EdgeInsets.fromLTRB(leftGap, 8, leftGap, 0),
       child: _getTextLine(
           child: Text(
-        "发布时间",
+        "发布时间  2019-04-10 11:11:11",
+        style: TextStyle(color: Color(0xFF999D9E)),
         textAlign: TextAlign.left,
       )),
     );
 
+    _getSingleText(String txt) {
+      return Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFFD8181), width: 0.5),
+            borderRadius: BorderRadius.all(Radius.circular(2))),
+        margin: EdgeInsets.only(right: 9),
+        padding: EdgeInsets.only(left: 5, right: 7),
+        child: Text(
+          txt,
+          style: TextStyle(fontSize: 11, color: Color(0xFFFD8181)),
+        ),
+      );
+    }
+
+    List tagList = ["交通便利", "近地铁", "一家人"];
+    List<Widget> tagWidget = [];
+    for (var txt in tagList) {
+      tagWidget.add(_getSingleText(txt));
+    }
+
     var tags = Container(
       margin: EdgeInsets.fromLTRB(leftGap, 8, leftGap, 0),
-      child: _getTextLine(child: Text("交通便利")),
+      child: Row(
+        children: tagWidget,
+      ),
     );
 
     return Column(
@@ -206,6 +252,134 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
     return MediaQuery.of(context).size.width;
   }
 
+  _getPricePart() {
+    _getSingleP(String key, String value) {
+      return Expanded(
+        flex: 1,
+        child: Column(
+          children: <Widget>[
+            Text(
+              key,
+              style: TextStyle(color: Color(0xFF999D9E), fontSize: 16),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5),
+              child: Text(
+                value,
+                style: TextStyle(
+                    color: Color(0xFFDF3031),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(top: leftGap),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              _getSingleP("租金", "12.8万元/月"),
+              _getSingleP("单价", "5.33元/㎡.天"),
+              _getSingleP("面积", "800㎡"),
+            ],
+          ),
+          _getGrayLineView(h: 0.5, mL: leftGap, mR: leftGap)
+        ],
+      ),
+    );
+  }
+
+  _getDetailInfoPart() {
+    InfoModel m = InfoModel(key: "使用面积：", value: "720㎡");
+
+    Map<String, String> deMap = {
+      "使用面积：": "720㎡",
+      "起 租 期：": "2019",
+      "支付方式：": "押一付三",
+      "物 业 费：": "3元/㎡.月（租金已包含）",
+      "楼     层：": "低层/21层",
+      "是否分割：": "不可分割",
+      "类型：": "纯写字楼",
+      "等级：": "甲级",
+      "建筑年代：": "2018",
+      "区域：": "丰台大葆台",
+      "楼盘名：": "建工汇豪商务广场",
+      "物业公司：": "龙湖物业",
+      "委托编号：": "400829476156",
+      "委托书：": "已上传",
+    };
+
+    List<InfoModel> models = [];
+    deMap.forEach((k, v) {
+      if (k == "楼盘名：") {
+        models.add(InfoModel(
+            key: k,
+            value: v,
+            onTap: () {
+              print("点击了楼盘名");
+            }));
+      } else if (k == "委托书：") {
+        models.add(InfoModel(
+            key: k,
+            value: v,
+            onTap: () {
+              print("点击了委托书");
+            }));
+      } else {
+        models.add(InfoModel(key: k, value: v));
+      }
+    });
+
+    List<Widget> deLi = [];
+    for (var item in models) {
+      var sg = Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            width: 80,
+            child: Text(
+              item.key,
+              style: TextStyle(color: Color(0xFF999D9E), fontSize: 16),
+            ),
+          ),
+          GestureDetector(
+            onTap: item.onTap,
+            child: Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text(
+                item.value,
+                style: TextStyle(
+                    color: item.onTap == null
+                        ? Color(0xFF394043)
+                        : Color(0xFF7D9CB2),
+                    fontSize: 16),
+              ),
+            ),
+          )
+        ],
+      );
+      deLi.add(sg);
+    }
+    
+    return Column(
+      children: <Widget>[
+        Container(
+          margin: EdgeInsets.only(top: 5, left: leftGap, right: leftGap),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: deLi,
+          ),
+        ),
+        _getGrayLineView()
+      ],
+    );
+  }
+
   _getListView(BuildContext context) {
     double screen_w = getScreenWidth(context);
 
@@ -213,9 +387,9 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
       children: <Widget>[
         _getHeadImagePart(screen_w, false),
         _getTitlePart(),
+        _getPricePart(),
+        _getDetailInfoPart(),
         _getAnimationChild(),
-        _getTextField(),
-        
       ],
       controller: _detailScrlCtr,
     );
@@ -224,7 +398,7 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
   }
 
   _getOver() {
-    if (pix < 0) {
+    if (pix <= 20) {
       return OverflowBox(
         alignment: Alignment.topCenter,
         maxWidth: getScreenWidth(context) * 10,
@@ -239,13 +413,72 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
     }
   }
 
+  _getCustomNaviBar() {
+    double ooo = 1;
+    Color bc = Colors.transparent;
+    Color iconC = Colors.white;
+
+    if (pix <= 0) {}
+    if (pix > 0 && pix <= 64) {
+      ooo = pix / 64;
+      bc = Color.fromRGBO(255, 255, 255, ooo);
+      iconC = Color.fromRGBO(0, 0, 0, ooo);
+    } else if (pix > 64) {
+      ooo = 0;
+      bc = Colors.white;
+      iconC = Colors.black;
+    }
+    // print("toolbarOpacity:$ooo");
+    // print("backgroundColor:$bc");
+
+    return SizedBox(
+      width: getScreenWidth(context),
+      height: 64,
+      child: AppBar(
+        // toolbarOpacity: ooo,
+        iconTheme: IconThemeData(color: iconC),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(isStar ? Icons.star : Icons.star_border),
+              tooltip: 'Open shopping cart',
+              onPressed: () {
+                setState(() {
+                  isStar = !isStar;
+                });
+              }),
+          IconButton(
+              icon: Icon(Icons.chat),
+              tooltip: 'Open shopping cart',
+              onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.share),
+              tooltip: 'Open shopping cart',
+              onPressed: () {
+                // Implement navigation to shopping cart page here...
+                print('Shopping cart opened.');
+              }),
+        ],
+        backgroundColor: bc,
+        elevation: 0,
+        // title: Text(
+        //   "${pix.toStringAsFixed(6)}",
+        //   style: TextStyle(color: iconC),
+        // ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${pix.toStringAsFixed(6)}"),
-      ),
+      // backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   title: Text("${pix.toStringAsFixed(6)}"),
+      // ),
       body: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
@@ -256,6 +489,7 @@ class _ZYDeatilWigetState extends State<ZYDetailWiget>
             children: <Widget>[
               _getListView(context),
               _getOver(),
+              _getCustomNaviBar()
             ],
           )),
     );
